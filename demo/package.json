@@ -2,8 +2,7 @@
   "dependencies": {
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "respa": "^0.1.2"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",
