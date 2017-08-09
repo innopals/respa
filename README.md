@@ -23,15 +23,18 @@ webapp/src/
 
 ## Use Respa
 
+Respa must be installed locally in order to make dependencies available.
+
+``` bash
+webapp$ yarn add respa
+```
+
 To start the hot reload dev server:
 
 ``` bash
-# if installed globally: npm install -g respa
-webapp$ respa
-# or
-webapp$ respa dev
-# or installed locally: yarn add respa
 webapp$ ./node_modules/.bin/respa
+# or
+webapp$ ./node_modules/.bin/respa dev
 # or use npx
 webapp$ npx respa
 ```
@@ -39,12 +42,9 @@ webapp$ npx respa
 To build for production:
 
 ``` bash
-# if installed globally: npm install -g respa
-webapp$ respa build
-# or
-webapp$ respa dist
-# or installed locally: yarn add respa
 webapp$ ./node_modules/.bin/respa build
+# or
+webapp$ ./node_modules/.bin/respa dist
 # or use npx
 webapp$ npx respa build
 ```
