@@ -13,7 +13,10 @@ try {
 	if (__filename !== localRespa) {
 		return require(localRespa);
 	}
-} catch (e) { }
+} catch (e) {
+	console.error("Respa must be installed locally in order to make deps available.");
+	process.exit(-1);
+}
 
 const argv = process.argv.slice(2);
 
