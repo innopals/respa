@@ -53,8 +53,7 @@ var config = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /(node_modules)/,
-        include: [path.join(process.cwd(), "node_modules/respa"), path.join(__dirname, '..')],
+        exclude:  /node_modules(?!\/respa)/,
         use: [{
           loader: 'babel-loader',
           options: {
