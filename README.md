@@ -2,7 +2,13 @@
 
 Respa is a React/Redux based SPA framework, which has already made the hard choices for you and you can keep your code base extremely clean.
 
-The document is working on progress, you can refer to the demo, we'll add more examples later.
+The document is working on progress, you can refer to the demo, we'll add more examples later. To run the demo:
+
+``` bash
+respa$ cd demo
+demo$ yarn install
+demo$ npx respa
+```
 
 If you're interested in this project please tell me: i@bestmike007.com
 
