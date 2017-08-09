@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-class ViewLoader extends React.Component {
+class ViewLoader extends Component {
   constructor() {
     super();
     this.state = {};

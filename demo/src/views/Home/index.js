@@ -1,4 +1,3 @@
-import React from 'react';
 // layouts
 import DefaultLayout from 'WEBROOT/layouts/Default';
 import RightHeavyTwoColumnsLayout from 'WEBROOT/layouts/RightHeavyTwoColumns';

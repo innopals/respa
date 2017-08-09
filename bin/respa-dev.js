@@ -6,6 +6,7 @@ try {
   require('webpack-dev-middleware');
   require('webpack-hot-middleware');
   require('browser-sync-webpack-plugin');
+  require('html-webpack-plugin');
 } catch (e) {
   console.log(e);
   process.exit(-1);
@@ -14,8 +15,9 @@ try {
 var express = require('express'),
   webpack = require('webpack'),
   config = require('./webpack.config'),
-  pathConfig = require('./path-config');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+  pathConfig = require('./path-config'),
+  BrowserSyncPlugin = require('browser-sync-webpack-plugin'),
+  HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var respa_config = {};
 try {
@@ -50,6 +52,8 @@ config.plugins.push(
     }
   )
 );
+
+config.plugins.filter(p => p instanceof HtmlWebpackPlugin)[0].options.filename = 'index.html';
 
 app = express();
 // for highly stable resources

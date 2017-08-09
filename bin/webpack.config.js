@@ -17,17 +17,17 @@ var config = {
     __filename: env !== 'production' // Allow use of __filename in modules, based on context
   },
   entry: {
-    app: path.join(__dirname, "../websrc/app.js"),
-    vendor: [
-      'history',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'redux'
-    ]
+    app: path.join(__dirname, "../websrc/app.js")
+    // vendor: [
+    //   'history',
+    //   'react-redux',
+    //   'react-router',
+    //   'react-router-redux',
+    //   'redux'
+    // ]
   },
   output: {
-    path: pathConfig.dist,
+    path: path.join(pathConfig.dist, 'static'),
     publicPath: process.env.ASSET_BASE_URL || pathConfig.contextPath + (pathConfig.contextPath.endsWith("/") ? "static/" : "/static/")
   },
   externals: {
@@ -38,6 +38,7 @@ var config = {
     extensions: ['.js', '.jsx'],
     alias: {
       "respa": path.join(__dirname, '..'),
+      "redux-logger": path.join(pathConfig.rootPath, "node_modules", "redux-logger"),
       "WEBROOT": pathConfig.src,
       "REDUCERS": path.join(pathConfig.src, "reducers"),
       "ACTION": path.join(pathConfig.src, "actions"),
@@ -53,7 +54,7 @@ var config = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude:  /node_modules(?!\/respa)/,
+        exclude: /node_modules(?!\/respa)/,
         use: [{
           loader: 'babel-loader',
           options: {
@@ -72,7 +73,10 @@ var config = {
               }],
               ['transform-object-rest-spread', { 'useBuiltIns': true }],
               ['syntax-dynamic-import'],
-              ['transform-class-properties']
+              ['transform-class-properties'],
+              ["transform-react-jsx", {
+                "pragma": "h"
+              }]
             ]
           }
         }]
@@ -105,19 +109,22 @@ var config = {
   },
   plugins: [
     new CaseSensitivePathsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({ names: ['vendor'] }),
+    new webpack.ProvidePlugin({
+      'h': 'respa/h'
+    }),
+    // new webpack.optimize.CommonsChunkPlugin({ names: ['vendor'] }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.MinChunkSizePlugin({
       minChunkSize: 100000
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      filename: '../index.html',
       template: pathConfig.indexPage
     }),
     new webpack.DefinePlugin({
       'process.env': envs,
       __CONTEXT_PATH__: JSON.stringify(pathConfig.contextPath),
-      __DEV__: env === 'development',
+      __DEV__: env === 'dev',
       __TEST__: env === 'test',
       __ALPHA__: env === 'alpha',
       __PROD__: env === 'production',

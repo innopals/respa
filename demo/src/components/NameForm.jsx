@@ -1,6 +1,6 @@
-import React from 'react';
+import { Component } from 'react';
 
-export default class NameForm extends React.Component {
+export default class NameForm extends Component {
   constructor() {
     super();
     this.state = {};

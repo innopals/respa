@@ -30,8 +30,10 @@ config.plugins.push(
     compress: {
       warnings: false
     }
-  }),
+  })
 );
+// ensure that NODE_ENV is set to production.
+config.plugins.filter(p => p instanceof webpack.DefinePlugin)[0].definitions['process.env'].NODE_ENV = '"production"';
 
 webpack(config, function (err, stats) {
   // show build info to console

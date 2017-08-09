@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Route, Switch, Redirect } from 'react-router';
 import ViewLoader from './ViewLoader';
 import PageNotFound from './NotFound';

@@ -8,7 +8,7 @@ if (!contextPath.endsWith('/')) contextPath = contextPath + '/';
 var rootPath = process.cwd(), // 项目根目录
   srcDir = path.join(rootPath, 'src'), // 开发源码目录
   staticDir = path.join(rootPath, 'static'),
-  env = (process.env.NODE_ENV || "").trim(); // 当前环境
+  env = (process.env.NODE_ENV || "dev").trim(); // 当前环境
 
 module.exports = {
   rootPath: rootPath,

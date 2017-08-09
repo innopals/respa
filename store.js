@@ -23,10 +23,10 @@ function configureStore() {
 
   if (__DEV__) {
     try {
-      const createLogger = require('redux-logger');
+      const createLogger = require('redux-logger').createLogger;
       middlewares.push(createLogger());
     } catch (e) {
-      console.warn("Install redux-logger package to enable redux logger in dev environment.");
+      console.warn("Install redux-logger package to enable redux logger in dev environment.", e);
     }
   }
   return createStore(
