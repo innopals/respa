@@ -34,7 +34,8 @@
     "history.js",
     "createAction.js",
     "mergeState.js",
-    "h.js"
+    "h.js",
+    "LazyViewLoader.js"
   ],
   "dependencies": {
     "babel-core": "^6.25.0",

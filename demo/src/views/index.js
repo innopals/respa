@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect } from 'react-router';
-import ViewLoader from './ViewLoader';
+import ViewLoader from 'respa/LazyViewLoader';
 import PageNotFound from './NotFound';
 
 require('./base.less');

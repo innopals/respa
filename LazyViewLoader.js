@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+// TODO use custom loading view & load failed view.
 class ViewLoader extends Component {
   constructor() {
     super();
