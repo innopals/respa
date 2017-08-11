@@ -1,6 +1,9 @@
 {
   "git.ignoreLimitWarning": true,
   "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
   "editor.wordWrap": "on",
   "editor.minimap.enabled": true,
   "path-intellisense.extensionOnImport": false

@@ -18,18 +18,12 @@ var config = {
   },
   entry: {
     app: path.join(__dirname, "../websrc/app.js")
-    // vendor: [
-    //   'history',
-    //   'react-redux',
-    //   'react-router',
-    //   'react-router-redux',
-    //   'redux'
-    // ]
   },
   output: {
     path: path.join(pathConfig.dist, 'static'),
     publicPath: process.env.ASSET_BASE_URL || pathConfig.contextPath + (pathConfig.contextPath.endsWith("/") ? "static/" : "/static/")
   },
+  recordsOutputPath: path.join(pathConfig.dist, '.modules.json'),
   externals: {
     'react': 'React',
     'react-dom': "ReactDOM"
@@ -112,10 +106,9 @@ var config = {
     new webpack.ProvidePlugin({
       'h': 'respa/h'
     }),
-    // new webpack.optimize.CommonsChunkPlugin({ names: ['vendor'] }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.MinChunkSizePlugin({
-      minChunkSize: 100000
+      minChunkSize: respa_config.minChunkSize || 100000
     }),
     new HtmlWebpackPlugin({
       filename: '../index.html',
@@ -136,6 +129,11 @@ var config = {
   ]
 };
 
+if (Array.isArray(respa_config.commonsChunk)) {
+  config.entry.vendors = respa_config.commonsChunk;
+  config.plugins.push(new webpack.optimize.CommonsChunkPlugin({ names: ['vendors'] }));
+}
+
 try {
   var DashboardPlugin = require('webpack-dashboard/plugin');
   config.plugins.shift(new DashboardPlugin());
@@ -152,5 +150,9 @@ try {
     }),
   });
 } catch (e) { }
+
+if (typeof respa_config.postWebpackConfig === 'function') {
+  respa_config.postWebpackConfig(config);
+}
 
 module.exports = config;
