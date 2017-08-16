@@ -2,7 +2,7 @@
   "dependencies": {
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
-    "respa": "^0.1.2"
+    "respa": "^0.1.3"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",
