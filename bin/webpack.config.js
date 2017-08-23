@@ -28,6 +28,7 @@ var config = {
     'react': 'React',
     'react-dom': "ReactDOM"
   },
+  jsonpFunction: 'lm',
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -94,7 +95,7 @@ var config = {
         use: {
           loader: 'url-loader',
           options: {
-            limit: 10240, // 10KB 以下使用 base64
+            limit: 10240, // Use base64 data url when file size is smaller then 10KB.
             name: 'img/[name]-[hash:6].[ext]'
           }
         }
