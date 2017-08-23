@@ -7,7 +7,7 @@ require('./base.less');
 const HomeViewLoader = () => import("./Home");
 export default function App(props) {
   return (
-    <Switch>
+    <Switch location={props.routing.location}>
       <Route path='/' exact><Redirect to="/home" /></Route>
       <Route path="/home" exact>
         <ViewLoader loader={HomeViewLoader} {...props} />

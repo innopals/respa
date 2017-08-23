@@ -9,22 +9,25 @@ var path = require("path");
 
 // Local version replace global one
 try {
-	var localRespa = require.resolve(path.join(process.cwd(), "node_modules", "respa", "bin", "respa.js"));
-	if (__filename !== localRespa) {
-		return require(localRespa);
-	}
+  var localRespa = require.resolve(path.join(process.cwd(), "node_modules", "respa", "bin", "respa.js"));
+  if (__filename !== localRespa) {
+    return require(localRespa);
+  }
 } catch (e) {
-	console.error("Respa must be installed locally in order to make deps available.");
-	process.exit(-1);
+  console.error("Respa must be installed locally in order to make deps available.");
+  process.exit(-1);
 }
 
 const argv = process.argv.slice(2);
 
 // console.log(argv);
 if (argv.length === 0 || argv[0] === 'dev') {
-	return require("./respa-dev");
+  return require("./respa-dev");
 }
 
 if (argv[0] === 'dist' || argv[0] === 'build') {
-	return require("./respa-prod");
+  return require("./respa-prod");
 }
+
+console.error("Unknown command: respa", argv.join(' '));
+process.exit(0);

@@ -20,6 +20,7 @@ var config = {
     app: path.join(__dirname, "../websrc/app.js")
   },
   output: {
+    jsonpFunction: 'lm',
     path: path.join(pathConfig.dist, 'static'),
     publicPath: process.env.ASSET_BASE_URL || pathConfig.contextPath + (pathConfig.contextPath.endsWith("/") ? "static/" : "/static/")
   },
@@ -28,7 +29,6 @@ var config = {
     'react': 'React',
     'react-dom': "ReactDOM"
   },
-  jsonpFunction: 'lm',
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
@@ -122,6 +122,7 @@ var config = {
       __TEST__: env === 'test',
       __ALPHA__: env === 'alpha',
       __PROD__: env === 'production',
+      __USE_PREACT__: fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "preact")),
       __COMPONENT_DEVTOOLS__: false,
       __WHY_DID_YOU_UPDATE__: false,
       __APP_DOM_ID__: respa_config.renderDomId ? JSON.stringify(respa_config.renderDomId) : false,
@@ -147,10 +148,16 @@ try {
     test: /\.scss$/,
     use: ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: ['css-loader', 'sass-loader'],
+      use: ['css-loader', 'sass-loader']
     }),
   });
 } catch (e) { }
+
+if (fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "preact"))) {
+  delete config.externals["react"];
+  delete config.externals["react-dom"];
+  config.resolve.alias["react"] = config.resolve.alias["react-dom"] = path.join(pathConfig.rootPath, "node_modules", "preact-compat");
+}
 
 if (typeof respa_config.postWebpackConfig === 'function') {
   respa_config.postWebpackConfig(config);

@@ -1,7 +1,11 @@
 {
+  "name": "respa-demo",
+  "version": "0.0.0",
   "dependencies": {
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "preact": "^8.2.1",
+    "preact-compat": "^3.17.0",
     "respa": "^0.1.3"
   },
   "devDependencies": {
