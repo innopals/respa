@@ -62,6 +62,10 @@ app.use(pathConfig.contextPath + 'static', express.static(pathConfig.static));
 app.use(require('connect-history-api-fallback')());
 
 var compiler = webpack(config);
+try {
+  var DashboardPlugin = require('webpack-dashboard/plugin');
+  compiler.apply(new DashboardPlugin());
+} catch (e) { }
 // serve webpack bundle output
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,

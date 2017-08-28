@@ -151,6 +151,9 @@ try {
       use: ['css-loader', 'sass-loader']
     }),
   });
+  config.plugins.push(
+    new ExtractTextPlugin('[name].[hash:6].css')
+  );
 } catch (e) { }
 
 if (fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "preact"))) {
