@@ -24,7 +24,7 @@ var config = {
     path: path.join(pathConfig.dist, 'static'),
     publicPath: process.env.ASSET_BASE_URL || pathConfig.contextPath + (pathConfig.contextPath.endsWith("/") ? "static/" : "/static/")
   },
-  recordsOutputPath: path.join(pathConfig.dist, '.modules.json'),
+  recordsOutputPath: path.join(pathConfig.rootPath, 'dist', '.modules.json'),
   externals: {
     'react': 'React',
     'react-dom': "ReactDOM"

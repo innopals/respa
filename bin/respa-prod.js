@@ -48,7 +48,7 @@ webpack(config, function (err, stats) {
   }
   // save build info to file
   fs.writeFileSync(
-    path.join(pathConfig.dist, '__build_info__'),
+    path.join(pathConfig.rootPath, 'dist', '__build_info__'),
     stats.toString({ color: false })
   );
 });
