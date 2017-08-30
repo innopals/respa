@@ -1,4 +1,4 @@
-# respa v0.1.5
+# respa v0.1.6
 
 Respa is a React/Redux based SPA framework, which has already made the hard choices for you and you can keep your code base extremely clean.
 

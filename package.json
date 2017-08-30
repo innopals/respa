@@ -1,6 +1,6 @@
 {
   "name": "respa",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React/Redux based SPA framework",
   "main": "index.js",
   "scripts": {
