@@ -1,6 +1,6 @@
 {
   "name": "respa",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "React/Redux based SPA framework",
   "main": "index.js",
   "scripts": {
@@ -61,7 +61,6 @@
     "react-router-redux": "next",
     "redux": "^3.7.2",
     "style-loader": "^0.18.2",
-    "url-loader": "^0.5.9",
     "webpack": "^3.5.5"
   },
   "peerDependencies": {
