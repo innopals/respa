@@ -1,5 +1,4 @@
 // layouts
-import DefaultLayout from 'WEBROOT/layouts/Default';
 import RightHeavyTwoColumnsLayout from 'WEBROOT/layouts/RightHeavyTwoColumns';
 // page parts
 import Welcome from './Welcome';

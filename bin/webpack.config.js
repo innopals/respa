@@ -91,12 +91,12 @@ var config = {
           loader: 'html-loader'
         }
       }, {
-        test: /\.(png|jpe?g|gif|svg)$/,
+        test: /\.(png|jpe?g|gif|svg|webp|docx?|xlsx?|zip|7z)$/,
         use: {
-          loader: 'url-loader',
+          loader: 'file-loader',
           options: {
-            limit: 10240, // Use base64 data url when file size is smaller then 10KB.
-            name: 'img/[name]-[hash:6].[ext]'
+            name: '[name]-[hash:6].[ext]',
+            outputPath: 'assets/'
           }
         }
       }
@@ -118,13 +118,7 @@ var config = {
     new webpack.DefinePlugin({
       'process.env': envs,
       __CONTEXT_PATH__: JSON.stringify(pathConfig.contextPath),
-      __DEV__: env === 'dev',
-      __TEST__: env === 'test',
-      __ALPHA__: env === 'alpha',
-      __PROD__: env === 'production',
       __USE_PREACT__: fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "preact")),
-      __COMPONENT_DEVTOOLS__: false,
-      __WHY_DID_YOU_UPDATE__: false,
       __APP_DOM_ID__: respa_config.renderDomId ? JSON.stringify(respa_config.renderDomId) : false,
       __PREBOOT_SCRIPT__: fs.existsSync(path.join(pathConfig.src, 'preboot.js')) ? JSON.stringify(path.join(pathConfig.src, 'preboot.js')) : false
     })

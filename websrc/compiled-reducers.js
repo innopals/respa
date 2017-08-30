@@ -1,6 +1,6 @@
 import $root from 'REDUCERS';
 
-if (!__PROD__) window.__reducers__ = $root;
+if (process.env.BUILD_ENV !== 'production') window.__reducers__ = $root;
 
 const actionReducers = {};
 const initialStates = { routing: {} };
@@ -61,7 +61,7 @@ function initializeStateTree(ctx) {
   });
 }
 
-export default function(rootState, action) {
+export default function (rootState, action) {
   let ctx = { $root: rootState };
   if (!initialized) {
     initializeStateTree(ctx);

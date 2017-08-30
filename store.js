@@ -21,7 +21,7 @@ const rootReducer = (state, action) => {
 function configureStore() {
   let middlewares = [promiseMiddleware];
 
-  if (__DEV__) {
+  if (process.env.BUILD_ENV === 'dev') {
     try {
       const createLogger = require('redux-logger').createLogger;
       middlewares.push(createLogger());
@@ -39,7 +39,7 @@ function configureStore() {
 const store = configureStore();
 ActionFactory.init(store);
 
-if (!__PROD__) {
+if (process.env.BUILD_ENV !== 'production') {
   window.__store__ = store;
 };
 
