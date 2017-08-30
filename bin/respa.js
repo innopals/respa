@@ -25,8 +25,16 @@ if (argv.length === 0 || argv[0] === 'dev') {
   return require("./respa-dev");
 }
 
-if (argv[0] === 'dist' || argv[0] === 'build') {
+if (argv[0] === 'dist' || argv[0] === 'build' || argv[0] === 'build-production') {
   return require("./respa-prod");
+}
+
+if (argv[0] === 'build-test') {
+  return require("./respa-test");
+}
+
+if (argv[0] === 'build-preview') {
+  return require("./respa-preview");
 }
 
 console.error("Unknown command: respa", argv.join(' '));

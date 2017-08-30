@@ -1,3 +1,4 @@
+process.env.BUILD_ENV = 'dev';
 var path = require('path');
 try {
   // ensure dev packages are installed.

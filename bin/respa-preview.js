@@ -1,6 +1,6 @@
 // ensure that NODE_ENV is set to production.
 process.env.NODE_ENV = 'production';
-process.env.BUILD_ENV = 'production';
+process.env.BUILD_ENV = 'preview';
 
 var webpack = require('webpack'),
   fs = require('fs'),
@@ -15,7 +15,8 @@ try {
   respa_config = require(path.join(process.cwd(), ".respa"));
 } catch (e) { }
 
-// Adjust config for prod dist.
+// Adjust config for test env deploy.
+config.devtool = 'source-map';
 config.output.filename = '[name].[chunkhash:6].js';
 config.output.chunkFilename = '[id].[chunkhash:6].js';
 config.plugins.push(
@@ -33,7 +34,8 @@ config.plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
-    }
+    },
+    sourceMap: true
   })
 );
 
