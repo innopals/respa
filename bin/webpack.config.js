@@ -9,6 +9,16 @@ try {
   respa_config = require(path.join(process.cwd(), ".respa"));
 } catch (e) { }
 
+// detect guest app installed plugins & rules.
+var ExtractTextPlugin, useLessLoader, useSassLoader, usePostCss, useHtmlLoader = null;
+if (fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "extract-text-webpack-plugin"))) {
+  ExtractTextPlugin = require('extract-text-webpack-plugin');
+}
+useLessLoader = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "less-loader"));
+useSassLoader = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "sass-loader"));
+usePostCss = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "postcss-loader"));
+useHtmlLoader = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "html-loader"));
+
 var envs = {}, env = pathConfig.env;
 Object.keys(process.env).forEach(k => envs[k] = JSON.stringify(process.env[k]));
 
@@ -75,21 +85,6 @@ var config = {
             ]
           }
         }]
-      },
-      {
-        test: /\.less$/,
-        exclude: [/theme.less/, /node_modules/],
-        use: [
-          'style-loader',
-          { loader: 'css-loader', options: { importLoaders: 1 } },
-          'less-loader'
-        ]
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: 'html-loader'
-        }
       }, {
         test: /\.(png|jpe?g|gif|svg|webp|docx?|xlsx?|zip|7z)$/,
         use: {
@@ -135,20 +130,49 @@ try {
   config.plugins.shift(new DashboardPlugin());
 } catch (e) { }
 
-try {
-  require("sass-loader");
-  var ExtractTextPlugin = require('extract-text-webpack-plugin');
-  config.module.rules.push({
-    test: /\.scss$/,
-    use: ExtractTextPlugin.extract({
+function applyCssLoaderFor(ext, loader) {
+  var loaders = [{ loader: 'css-loader', options: { importLoaders: 1 } }];
+  if (usePostCss) {
+    if (!fs.existsSync(path.join(pathConfig.rootPath, "postcss.config.js"))) {
+      console.info("Error configuring postcss loader: You have to add postcss.config.js to your project and add required dependencies.");
+      process.exit(0);
+    }
+    loaders.push('postcss-loader');
+  }
+  loaders.push(loader);
+  if (ExtractTextPlugin) {
+    loaders = ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: ['css-loader', 'sass-loader']
-    }),
+      use: loaders
+    });
+  } else {
+    loaders.unshift('style-loader');
+  }
+  config.module.rules.unshift({
+    test: ext,
+    use: loaders
   });
+}
+
+if (useHtmlLoader) {
+  config.module.rules.unshift({
+    test: /\.html$/,
+    use: {
+      loader: 'html-loader'
+    }
+  });
+}
+if (useSassLoader) {
+  applyCssLoaderFor(/\.scss$/, 'sass-loader');
+}
+if (useLessLoader) {
+  applyCssLoaderFor(/\.less$/, 'less-loader');
+}
+if (ExtractTextPlugin) {
   config.plugins.push(
     new ExtractTextPlugin('[name].[hash:6].css')
   );
-} catch (e) { }
+}
 
 if (fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "preact"))) {
   delete config.externals["react"];

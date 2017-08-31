@@ -2,8 +2,16 @@
   "name": "respa-demo",
   "version": "0.0.0",
   "dependencies": {
+    "cssnano": "^3.10.0",
+    "extract-text-webpack-plugin": "^3.0.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.5",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.6",
+    "postcss-reporter": "^5.0.0",
+    "postcss-url": "^7.1.2",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
     "respa": "^0.1.3"
