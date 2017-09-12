@@ -14,7 +14,7 @@
     "postcss-url": "^7.1.2",
     "preact": "^8.2.1",
     "preact-compat": "^3.17.0",
-    "respa": "^0.1.3"
+    "respa": "^0.1.8"
   },
   "devDependencies": {
     "browser-sync": "^2.18.13",
