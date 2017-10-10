@@ -131,26 +131,50 @@ try {
 } catch (e) { }
 
 function applyCssLoaderFor(ext, loader) {
-  var loaders = [{ loader: 'css-loader', options: { importLoaders: 1 } }];
+  var cssLoaders = [{
+    loader: 'css-loader', options: {
+      importLoaders: 1,
+      sourceMap: process.env.NODE_ENV !== 'production',
+      minimize: process.env.NODE_ENV === 'production'
+    }
+  }];
+  var cssModuleLoaders = [{
+    loader: 'css-loader', options: {
+      importLoaders: 1,
+      sourceMap: process.env.NODE_ENV !== 'production',
+      minimize: process.env.NODE_ENV === 'production',
+      modules: true,
+      localIdentName: '[name]_[local]--[hash:base64:5]'
+    }
+  }];
   if (usePostCss) {
     if (!fs.existsSync(path.join(pathConfig.rootPath, "postcss.config.js"))) {
       console.info("Error configuring postcss loader: You have to add postcss.config.js to your project and add required dependencies.");
       process.exit(0);
     }
-    loaders.push('postcss-loader');
+    cssLoaders.push('postcss-loader');
+    cssModuleLoaders.push('postcss-loader');
   }
-  loaders.push(loader);
+  cssLoaders.push(loader);
+  cssModuleLoaders.push(loader);
   if (ExtractTextPlugin) {
-    loaders = ExtractTextPlugin.extract({
+    cssLoaders = ExtractTextPlugin.extract({
       fallback: 'style-loader',
-      use: loaders
+      use: cssLoaders
     });
   } else {
-    loaders.unshift('style-loader');
+    cssLoaders.unshift('style-loader');
   }
+  cssModuleLoaders.unshift('style-loader');
   config.module.rules.unshift({
     test: ext,
-    use: loaders
+    include: /src\/(components|views|layouts)/,
+    use: cssModuleLoaders
+  });
+  config.module.rules.unshift({
+    test: ext,
+    exclude: /src\/(components|views|layouts)/,
+    use: cssLoaders
   });
 }
 
