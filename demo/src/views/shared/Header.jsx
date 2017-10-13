@@ -1,1 +1,1 @@
-export default () => <div id='header'>This is the header.</div>
+export default () => <div className={require('./Header.less').header}>This is the header.</div>

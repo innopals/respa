@@ -6,7 +6,7 @@ import DefaultLayout from 'WEBROOT/layouts/Default';
 import Header from 'WEBROOT/views/shared/Header';
 import Footer from 'WEBROOT/views/shared/Footer';
 
-require('./base.less');
+require('../base.less');
 
 const HomeViewLoader = () => import("./Home");
 export default function App(props) {

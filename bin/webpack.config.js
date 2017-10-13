@@ -144,7 +144,7 @@ function applyCssLoaderFor(ext, loader) {
       sourceMap: process.env.NODE_ENV !== 'production',
       minimize: process.env.NODE_ENV === 'production',
       modules: true,
-      localIdentName: '[name]_[local]--[hash:base64:5]'
+      localIdentName: respa_config.cssClassIdentName || '[name]_[local]--[hash:base64:5]'
     }
   }];
   if (usePostCss) {
@@ -168,12 +168,12 @@ function applyCssLoaderFor(ext, loader) {
   cssModuleLoaders.unshift('style-loader');
   config.module.rules.unshift({
     test: ext,
-    include: /src\/(components|views|layouts)/,
+    include: /src[\/\\](components|views|layouts)/,
     use: cssModuleLoaders
   });
   config.module.rules.unshift({
     test: ext,
-    exclude: /src\/(components|views|layouts)/,
+    exclude: /src[\/\\](components|views|layouts)/,
     use: cssLoaders
   });
 }

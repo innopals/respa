@@ -1,1 +1,1 @@
-export default () => <div id='footer'>This is the footer.</div>
+export default () => <div className={require("./Footer.less").footer}>This is the footer.</div>
