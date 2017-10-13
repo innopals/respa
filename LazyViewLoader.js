@@ -9,9 +9,10 @@ class ViewLoader extends Component {
   loadComponent(loader) {
     loader().then(C => {
       C = C['default'] || C;
-      this.setState({ C });
+      this.setState({ C, error: null });
     }, res => {
       console.log('err', res);
+      this.setState({ C: null, error: res });
     });
   }
   componentWillMount() {
@@ -24,12 +25,12 @@ class ViewLoader extends Component {
     }
   }
   render() {
-    let { C } = this.state;
+    let { C, error } = this.state;
+    let { loader, LoadingView, ErrorView, ...props } = this.props;
     if (!C) {
-      return this.props.LoadingView || <div>Loading...</div>;
+      return error ? (ErrorView || <div>Unable to load this page.</div>) : (LoadingView || <div>Loading...</div>);
     } else {
-      let { loader, ...props } = this.props;
-      return <C {...props}/>
+      return <C {...props} />
     }
   }
 }
