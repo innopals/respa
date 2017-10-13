@@ -59,7 +59,7 @@ var config = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules(?!\/respa)/,
+        exclude: /node_modules(?![\/\\]respa)/,
         use: [{
           loader: 'babel-loader',
           options: {
