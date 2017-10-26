@@ -1,9 +1,8 @@
 import { createStore, applyMiddleware, compose } from "redux";
-import { LOCATION_CHANGE } from "react-router-redux";
 import reducers from "./websrc/compiled-reducers";
 import promiseMiddleware from './websrc/promise-middleware';
 import ActionFactory from './createAction';
-import history from './history';
+import history, { LOCATION_CHANGE } from './history';
 import qs from 'qs';
 
 const rootReducer = (state, action) => {
