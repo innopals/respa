@@ -20,6 +20,7 @@ usePostCss = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "postc
 useHtmlLoader = fs.existsSync(path.join(pathConfig.rootPath, "node_modules", "html-loader"));
 
 var envs = {}, env = pathConfig.env;
+var respaIndex = path.join(__dirname, '../../dist');
 Object.keys(process.env).forEach(k => envs[k] = JSON.stringify(process.env[k]));
 
 var config = {
@@ -27,7 +28,7 @@ var config = {
     __filename: env !== 'production' // Allow use of __filename in modules, based on context
   },
   entry: {
-    app: path.join(__dirname, "../websrc/app.js")
+    app: path.join(__dirname, "../../dist/websrc/app.js")
   },
   output: {
     jsonpFunction: 'lm',
@@ -42,7 +43,7 @@ var config = {
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      "respa": path.join(__dirname, '..'),
+      "respa": respaIndex,
       "redux-logger": path.join(pathConfig.rootPath, "node_modules", "redux-logger"),
       "WEBROOT": pathConfig.src,
       "REDUCERS": path.join(pathConfig.src, "reducers"),
@@ -100,7 +101,7 @@ var config = {
   plugins: [
     new CaseSensitivePathsPlugin(),
     new webpack.ProvidePlugin({
-      'h': 'respa/h'
+      'h': path.join(respaIndex, 'h')
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.MinChunkSizePlugin({

@@ -1,10 +1,19 @@
-import React, { PureComponent } from 'react'
-import { Router } from 'react-router'
-import { LOCATION_CHANGE } from '../history'
+import React, { PureComponent } from 'react';
+import { Router } from 'react-router';
+import { LOCATION_CHANGE } from '../history';
+import { History, Location } from 'history';
 
-class ConnectedRouter extends PureComponent {
+export type ConnectedRouterProps = {
+  store?: any,
+  history: History,
+};
 
-  handleLocationChange = location => {
+class ConnectedRouter extends PureComponent<ConnectedRouterProps> {
+
+  store: any;
+  unsubscribeFromHistory: any;
+
+  handleLocationChange = (location: Location) => {
     this.store.dispatch({
       type: LOCATION_CHANGE,
       payload: location
@@ -23,8 +32,10 @@ class ConnectedRouter extends PureComponent {
   }
 
   render() {
+    console.log(this.props.children);
     return <Router {...this.props} />
   }
 }
 
-export default ConnectedRouter
+export default ConnectedRouter;
+

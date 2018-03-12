@@ -1,12 +1,8 @@
-import $root from 'REDUCERS';
-
-if (process.env.BUILD_ENV !== 'production') window.__reducers__ = $root;
-
-const actionReducers = {};
-const initialStates = { routing: {} };
+const actionReducers: any = {};
+const initialStates: any = { routing: {} };
 let initialized = false;
 
-function compileReducers(ns, node) {
+function compileReducers(ns: any, node: any) {
   let { reducers, children, initialState } = node;
   if (initialState) initialStates[ns] = initialState;
   if (reducers) {
@@ -26,17 +22,26 @@ function compileReducers(ns, node) {
     });
   }
 }
-compileReducers("$root", $root);
 
-function setInitialState(ctx, paths) {
+require.ensure([], require => {
+  const $root = require('REDUCERS').default;
+  if (process.env.BUILD_ENV !== 'production') {
+    (<any>window).__reducers__ = $root;
+  }
+  compileReducers("$root", $root);
+})
+
+function setInitialState(ctx: any, paths: string[]) {
   let node = ctx;
   let lastIndex = paths.length - 1;
   for (let i = 0; i < lastIndex; i++) node = node[paths[i]];
   if (!node[paths[lastIndex]]) node[paths[lastIndex]] = initialStates[paths.join('.')] || {};
 }
 
-function doReduce(ctx, paths, fn, payload, meta) {
-  let traversing = [];
+function doReduce(
+  ctx: any, paths: string[], fn: any, payload: any, meta: any
+) {
+  let traversing: string[] = [];
   let lastIndex = paths.length - 1;
   let lastKey = paths[lastIndex];
   let node = ctx;
@@ -51,9 +56,9 @@ function doReduce(ctx, paths, fn, payload, meta) {
   node[lastKey] = fn(node[lastKey], payload, meta);
 }
 
-function initializeStateTree(ctx) {
+function initializeStateTree(ctx: any) {
   Object.keys(initialStates).forEach(ns => {
-    let paths = [];
+    let paths: string[] = [];
     ns.split('.').forEach(path => {
       paths.push(path);
       setInitialState(ctx, paths);
@@ -61,15 +66,17 @@ function initializeStateTree(ctx) {
   });
 }
 
-export default function (rootState, action) {
+export default function (rootState: any, action: any) {
   let ctx = { $root: rootState };
   if (!initialized) {
     initializeStateTree(ctx);
     initialized = true;
   }
   if (!actionReducers[action.type]) return ctx.$root;
-  actionReducers[action.type].forEach(({ ns, fn }) => {
-    doReduce(ctx, ns.split('.'), fn, action.payload, action.meta);
-  });
+  actionReducers[action.type].forEach(
+    ({ ns, fn }: { ns: any, fn: any }) => {
+      doReduce(ctx, ns.split('.'), fn, action.payload, action.meta);
+    }
+  );
   return ctx.$root;
 }

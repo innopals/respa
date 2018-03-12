@@ -1,4 +1,4 @@
-import createAction from 'respa/createAction';
+import { createAction } from 'respa';
 
 function setName(name) {
   return {

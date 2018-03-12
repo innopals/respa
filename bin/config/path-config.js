@@ -1,8 +1,10 @@
 var path = require('path');
+
 var respa_config = {};
 try {
   respa_config = require(path.join(process.cwd(), ".respa"));
 } catch (e) { }
+
 var contextPath = respa_config.contextPath || "/";
 if (!contextPath.endsWith('/')) contextPath = contextPath + '/';
 var rootPath = process.cwd(), // 项目根目录

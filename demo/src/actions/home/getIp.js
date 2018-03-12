@@ -1,5 +1,4 @@
-import createAction from 'respa/createAction';
-
+import { createAction } from 'respa';
 const IP_JSONP_API_URI = 'https://api.ipify.org?format=jsonp';
 
 function getPublicIP() {

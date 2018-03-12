@@ -1,5 +1,5 @@
 import { Route, Switch, Redirect } from 'react-router';
-import ViewLoader from 'respa/LazyViewLoader';
+import { LazyViewLoader as ViewLoader } from 'respa';
 import PageNotFound from './NotFound';
 
 import DefaultLayout from 'WEBROOT/layouts/Default';
